@@ -5,7 +5,7 @@ author        = "Moonsea Skyfish"
 description   = "A new awesome nimble package"
 license       = "MIT"
 srcDir        = "src"
-bin           = @["nim_wiki_sample"]
+bin           = @["nimwiki"]
 
 
 # Dependencies

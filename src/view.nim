@@ -26,13 +26,6 @@ proc defaultHtml(content: string, title: string,
   </head>
   <body>
     <h1>{title}</h1>
-{(indent(content, 4))}
-{(
-  block:
-    var s = ""
-)}
-    aaa
-
     <footer>
       <p><a href="/edit/{title}">EditPage</a> last modified:{lastModified}</p>
       <p><a href="/find">FindPage</a></p>
