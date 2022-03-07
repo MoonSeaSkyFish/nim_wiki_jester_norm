@@ -13,3 +13,4 @@ bin           = @["nimwiki"]
 requires "nim >= 1.6.4"
 requires "jester"
 requires "norm"
+requires "markdown"

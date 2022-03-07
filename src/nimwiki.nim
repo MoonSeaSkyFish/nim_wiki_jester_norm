@@ -1,56 +1,34 @@
-import jester
+import jester, uri
 import controller
-import model
 
-## for sample
-import packages/docutils/rst, packages/docutils/rstgen, strtabs, strutils, nre
+settingApp()
 
-settingModel()
+template response(text: ResponseText) =
+  resp $text
+
+template response(text: RedirectText) =
+  redirect $text
 
 routes:
   get "/":
-    resp "<a href=\"/sample\">here</a>"
-
-  get "/sample":
-    var content = """
-# Front Page
-
-
-this is front page.
-
-* aaaa
-  * bbbb
-
-:)
-
-this [[WikiName]] is *wiki* dayo.全角だと *強調* はどうなりますか？
-
-あいうえ**強調**だよね
-
-<hr>
-hello, world is [[hello]] ok?
-
-[aaa](/aaa)
-[あああ](/あああ)
-こんにちわは、[[あいさつ]]です。
-
-```foo
-fx
-bar
-foo
-```
-
-
-"""
-    content = replace(content, re"\[\[(?<wn>.+)\]\]", "[$wn](/$wn)")
-    resp rstToHtml(content, {roSupportSmilies, roSupportMarkdown,
-                              roPreferMarkdown}, newStringTable(modeStyleInsensitive))
-
+    response indexPage()
   get "/edit/@wikiname":
-    discard
+    response editWikiPage(decodeUrl(@"wikiname"))
+  post "/edit/save/@wikiname":
+    response saveWiki(decodeUrl(@"wikiname"), request.params["content"])
   get "/find":
-    discard
-  get "/@WikiName":
-    discard
+    response findPage()
+  get "/find/wikiname/":
+    response findWikiNamePage(request.params["word"])
+  get "/find/content/":
+    response findContentPage(request.params["word"])
+  get "/list":
+    response listWikiPage()
+  get "/recent":
+    response recentWikiPage()
+  get "/favicon.ico":
+    resp Http404, "Not Found favicon.ico"
+  get "/@wikiname":
+    response wikiPage(decodeUrl(@"wikiname"))
 
 
