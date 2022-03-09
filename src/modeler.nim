@@ -17,12 +17,12 @@ template modelProc(db: untyped, statements: untyped): untyped =
     db.close
   statements
 
-proc nowTimeStampText(): string =
-  return now().format(dateTimeFormat)
+template nowTimeStampText():untyped =
+  now().format(dateTimeFormat)
 
 proc newWiki*(wikiname = "", content = ""): Wiki =
   let nowDateTime = nowTimeStampText()
-  result = Wiki(wikiname: wikiname, content: content,
+  Wiki(wikiname: wikiname, content: content,
        createDate: nowDateTime, updateDate: nowDateTime)
 
 proc createModel() =

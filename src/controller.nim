@@ -1,5 +1,4 @@
 import modeler, viewer
-export modeler
 
 const indexWikiName = "FrontPage"
 
@@ -15,7 +14,7 @@ proc newWikiPage(wikiName: string): string =
 
 proc wikiPage*(wikiName: string): ResponseText =
   let wiki = getWiki(wikiName)
-  result = ResponseText(
+  ResponseText(
     if wiki == nil:
       newWikiPage(wikiName)
     else:
@@ -23,11 +22,11 @@ proc wikiPage*(wikiName: string): ResponseText =
   )
 
 proc indexPage*(): ResponseText =
-  result = wikiPage(indexWikiName)
+  wikiPage(indexWikiName)
 
 proc editWikiPage*(wikiName: string): ResponseText =
   let wiki = getWiki(wikiName)
-  result = ResponseText(
+  ResponseText(
     if wiki == nil:
       newWikiPage(wikiName)
     else:
@@ -36,26 +35,26 @@ proc editWikiPage*(wikiName: string): ResponseText =
 
 proc saveWiki*(wikiName, content: string): RedirectText =
   setWiki(wikiName, content)
-  result = RedirectText("/" & wikiname)
+  RedirectText("/" & wikiname)
 
 proc findPage*(): ResponseText =
-  result = ResponseText(findRenderer())
+  ResponseText(findRenderer())
 
 proc findWikiNamePage*(word: string): ResponseText =
   var wikiList = findWikiName(word)
-  result = ResponseText(listRenderer(wikiList))
+  ResponseText(listRenderer(wikiList))
 
 proc findContentPage*(word: string): ResponseText =
   var wikiList = findContent(word)
-  result = ResponseText(listRenderer(wikiList))
+  ResponseText(listRenderer(wikiList))
 
 proc listWikiPage*(): ResponseText =
   var wikiList = getWikiList()
-  result = ResponseText(listRenderer(wikiList))
+  ResponseText(listRenderer(wikiList))
 
 proc recentWikiPage*(): ResponseText =
   var wikiList = getWikiList()
-  result = ResponseText(recentRenderer(wikiList))
+  ResponseText(recentRenderer(wikiList))
 
 proc settingApp*() =
   settingModel(indexWikiName)
