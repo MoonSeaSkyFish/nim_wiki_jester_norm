@@ -1,9 +1,7 @@
 import algorithm
 import htmlgen
 import strformat
-import strutils
 import packages/docutils/[rst, rstgen], strtabs
-import markdown
 import nre
 import modeler
 
